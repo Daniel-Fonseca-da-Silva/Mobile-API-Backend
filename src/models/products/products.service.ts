@@ -24,7 +24,7 @@ export class ProductsService {
     );
   }
   createProduct(createProductDTO: any) {
-    this.products.push();
+    this.products.push(createProductDTO);
   }
   updateProduct(id: string, updateProductDTO: any) {
     const INDEXPRODUCT = this.products.findIndex(

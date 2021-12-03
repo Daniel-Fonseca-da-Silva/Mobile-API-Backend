@@ -14,22 +14,22 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
   @Get()
   findAllProduct() {
-    return 'List of products';
+    return this.productsService.findAllProduct();
   }
   @Get(':id')
   findOneProduct(@Param('id') id: string) {
-    return `The id product is ${id}`;
+    return this.productsService.findOneProduct(id);
   }
   @Post()
   createProduct(@Body() body) {
-    return body;
+    return this.productsService.createProduct(body);
   }
   @Patch(':id')
   updateProduct(@Param('id') id: string, @Body() body) {
-    return `Product witd id ${id} was update`;
+    return this.productsService.updateProduct(id, body);
   }
   @Delete(':id')
   removeProduct(@Param('id') id: string) {
-    return `Product with id ${id} was removed`;
+    return this.productsService.removeProduct(id);
   }
 }
