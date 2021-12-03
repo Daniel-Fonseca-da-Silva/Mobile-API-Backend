@@ -7,27 +7,34 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { ClientsService } from 'src/models/clients/clients.service';
 
 @Controller('client')
 export class ClientsController {
+  constructor(private readonly clientsService: ClientsService) {}
+
   @Get()
   findAllClients() {
-    return `All clients are was returned`;
+    return this.clientsService.findAllClient();
   }
+
   @Get(':id')
   findOneClient(@Param('id') id: string) {
-    return `One client with id ${id} was returned`;
+    return this.clientsService.findOneClient(id);
   }
+
   @Post()
   createClient(@Body() body) {
-    return body;
+    return this.clientsService.createClient(body);
   }
+
   @Patch(':id')
   updateClient(@Param('id') id: string, @Body() body) {
-    return `This client with id ${id} was updated`;
+    return this.updateClient(id, body);
   }
+
   @Delete(':id')
   removeClient(@Param('id') id: string) {
-    return `This client with id ${id} was removed`;
+    return this.removeClient(id);
   }
 }

@@ -1,5 +1,4 @@
-import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
-import { STATUS_CODES } from 'http';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Product } from './product.entity';
 
 @Injectable()
