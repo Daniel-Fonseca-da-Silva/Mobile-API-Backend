@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { STATUS_CODES } from 'http';
 import { Product } from './product.entity';
 
 @Injectable()
@@ -50,7 +51,7 @@ export class ProductsService {
     const INDEXPRODUCT = this.products.findIndex(
       (products) => products.id === Number(id),
     );
-    if(INDEXPRODUCT => 0) {
+    if (INDEXPRODUCT != 0) {
       this.products.splice(INDEXPRODUCT, 1);
     }
   }
