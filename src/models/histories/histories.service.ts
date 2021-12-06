@@ -23,7 +23,7 @@ export class HistoriesService {
     return this.histories;
   }
 
-  findById(id: string) {
+  findHistoriesByClient(id: string) {
     const histories = this.histories.find(
       (histories: History) => histories.client_id === id,
     );
@@ -33,6 +33,7 @@ export class HistoriesService {
         HttpStatus.NOT_FOUND,
       );
     }
+    return histories;
   }
 
   CreateHistories(createHistoryDto: any) {

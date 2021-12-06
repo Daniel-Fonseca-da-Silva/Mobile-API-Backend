@@ -7,31 +7,33 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { HistoriesService } from 'src/models/histories/histories.service';
 
 @Controller('/starstore/history')
 export class HistoriesController {
+  constructor(private readonly historiesService: HistoriesService) {}
   @Get()
   findAllHistories() {
-    return `All histories in database`;
+    return this.historiesService.findAllHistories();
   }
 
   @Get(':id')
-  findById(@Param('id') id: string) {
-    return `All histories with this ${id} id`;
+  findHistoriesByClient(@Param('id') id: string) {
+    return this.historiesService.findHistoriesByClient(id);
   }
 
   @Post()
   CreateHistories(@Body() body) {
-    return body;
+    return this.historiesService.CreateHistories(body);
   }
 
   @Patch(':id')
   updateHistories(@Param('id') id: string, @Body() body) {
-    return `Historie with id ${id} was updated`;
+    return this.historiesService.updateHistories(id, body);
   }
 
   @Delete(':id')
   RemoveHistories(@Param('id') id: string) {
-    return `Deleted historie with id ${id}`;
+    return this.historiesService.RemoveHistories(id);
   }
 }
