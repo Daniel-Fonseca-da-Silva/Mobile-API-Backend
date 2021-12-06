@@ -11,7 +11,7 @@ import { CreateClientsDto } from 'src/dto/clients/create-clients';
 import { UpdateClientsDto } from 'src/dto/clients/update-clients';
 import { ClientsService } from 'src/models/clients/clients.service';
 
-@Controller('starstore/client')
+@Controller('starstore/clients')
 export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
