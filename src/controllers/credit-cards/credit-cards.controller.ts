@@ -1,3 +1,4 @@
+import { CreditCardsService } from '../../models/credit-cards/credit-cards.service';
 import {
   Body,
   Controller,
@@ -10,28 +11,30 @@ import {
 
 @Controller('starstore/cards')
 export class CreditCardsController {
+  constructor(private readonly creditCardsService: CreditCardsService) {}
+
   @Get()
   findAllCreditCards() {
-    return `Returned all credit-cards`;
+    return this.creditCardsService.findAllCreditCards();
   }
 
   @Get(':id')
   findCreditCard(@Param('id') id: string) {
-    return `Returned credit-card with id ${id}`;
+    return this.creditCardsService.findCreditCard(id);
   }
 
   @Post()
   createCreditCard(@Body() body) {
-    return body;
+    return this.creditCardsService.createCreditCard(body);
   }
 
   @Patch(':id')
   updateCreditCard(@Param('id') id: string, @Body() body) {
-    return `Updated credit card with id ${id}`;
+    return this.creditCardsService.updateCreditCard(id, body);
   }
 
   @Delete(':id')
   removeCreditCard(@Param('id') id: string) {
-    return `Removed credit card with id ${id}`;
+    return this.creditCardsService.removeCreditCard(id);
   }
 }

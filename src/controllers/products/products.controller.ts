@@ -12,6 +12,7 @@ import { ProductsService } from 'src/models/products/products.service';
 @Controller('starstore/product')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
+
   @Get()
   findAllProduct() {
     return this.productsService.findAllProduct();

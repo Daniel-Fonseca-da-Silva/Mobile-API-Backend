@@ -14,6 +14,7 @@ import { UpdateHistoriesDto } from 'src/dto/histories/update-histories';
 @Controller('/starstore/history')
 export class HistoriesController {
   constructor(private readonly historiesService: HistoriesService) {}
+
   @Get()
   findAllHistories() {
     return this.historiesService.findAllHistories();
