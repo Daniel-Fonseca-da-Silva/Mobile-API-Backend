@@ -8,6 +8,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { CreateCreditCardsDto } from 'src/dto/credit-cards/create-credit-cards';
+import { UpdateCreditCardsDto } from 'src/dto/credit-cards/update-credit-cards';
 
 @Controller('starstore/cards')
 export class CreditCardsController {
@@ -24,13 +26,16 @@ export class CreditCardsController {
   }
 
   @Post()
-  createCreditCard(@Body() body) {
-    return this.creditCardsService.createCreditCard(body);
+  createCreditCard(@Body() createCreditCardsDto: CreateCreditCardsDto) {
+    return this.creditCardsService.createCreditCard(createCreditCardsDto);
   }
 
   @Patch(':id')
-  updateCreditCard(@Param('id') id: string, @Body() body) {
-    return this.creditCardsService.updateCreditCard(id, body);
+  updateCreditCard(
+    @Param('id') id: string,
+    @Body() updateCreditCardsDto: UpdateCreditCardsDto,
+  ) {
+    return this.creditCardsService.updateCreditCard(id, updateCreditCardsDto);
   }
 
   @Delete(':id')
