@@ -8,6 +8,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { HistoriesService } from 'src/models/histories/histories.service';
+import { CreateHistoriesDto } from 'src/dto/histories/create-histories';
+import { UpdateHistoriesDto } from 'src/dto/histories/update-histories';
 
 @Controller('/starstore/history')
 export class HistoriesController {
@@ -23,13 +25,16 @@ export class HistoriesController {
   }
 
   @Post()
-  CreateHistories(@Body() body) {
-    return this.historiesService.CreateHistories(body);
+  CreateHistories(@Body() createHistoriesDto: CreateHistoriesDto) {
+    return this.historiesService.CreateHistories(createHistoriesDto);
   }
 
   @Patch(':id')
-  updateHistories(@Param('id') id: string, @Body() body) {
-    return this.historiesService.updateHistories(id, body);
+  updateHistories(
+    @Param('id') id: string,
+    @Body() updateHistoriesDto: UpdateHistoriesDto,
+  ) {
+    return this.historiesService.updateHistories(id, updateHistoriesDto);
   }
 
   @Delete(':id')

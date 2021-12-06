@@ -1,4 +1,4 @@
-export class CreditCardEntity {
+export class CreditCard {
   card_number: string;
   card_holder_name: string;
   value: number;
