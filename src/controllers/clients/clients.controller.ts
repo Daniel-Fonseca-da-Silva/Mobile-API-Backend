@@ -7,6 +7,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { CreateClientsDto } from 'src/dto/clients/create-clients';
+import { UpdateClientsDto } from 'src/dto/clients/update-clients';
 import { ClientsService } from 'src/models/clients/clients.service';
 
 @Controller('starstore/client')
@@ -24,13 +26,16 @@ export class ClientsController {
   }
 
   @Post()
-  createClient(@Body() body) {
-    return this.clientsService.createClient(body);
+  createClient(@Body() createClientsDto: CreateClientsDto) {
+    return this.clientsService.createClient(createClientsDto);
   }
 
   @Patch(':id')
-  updateClient(@Param('id') id: string, @Body() body) {
-    return this.clientsService.updateClient(id, body);
+  updateClient(
+    @Param('id') id: string,
+    @Body() updateClientsDto: UpdateClientsDto,
+  ) {
+    return this.clientsService.updateClient(id, updateClientsDto);
   }
 
   @Delete(':id')
