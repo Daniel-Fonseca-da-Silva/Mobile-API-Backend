@@ -1,4 +1,4 @@
-export class HistoryEntity {
+export class History {
   client_id: string;
   purchase_id: string;
   value: number;

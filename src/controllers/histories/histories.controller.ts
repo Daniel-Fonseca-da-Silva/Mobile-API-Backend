@@ -27,7 +27,7 @@ export class HistoriesController {
 
   @Patch(':id')
   updateHistories(@Param('id') id: string, @Body() body) {
-    return `Historie with id ${id} was removed`;
+    return `Historie with id ${id} was updated`;
   }
 
   @Delete(':id')
