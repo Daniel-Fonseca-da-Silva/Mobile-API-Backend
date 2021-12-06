@@ -1,14 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ProductsModule } from './modules/products/products.module';
-
-import { CreditCardsController } from './controllers/credit-cards/credit-cards.controller';
-import { CreditCardsService } from './models/credit-cards/credit-cards.service';
+import { ProductsModule } from './modules/products/products.module';s
 import { ClientsModule } from './modules/clients/clients.module';
 import { HistoriesModule } from './modules/histories/histories.module';
+import { CreditCardsModule } from './modules/credit-cards/credit-cards.module';
 
 @Module({
-  imports: [ProductsModule, ClientsModule, HistoriesModule],
-  controllers: [CreditCardsController],
-  providers: [CreditCardsService],
+  imports: [ProductsModule, ClientsModule, HistoriesModule, CreditCardsModule],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
