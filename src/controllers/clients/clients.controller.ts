@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ClientsService } from 'src/models/clients/clients.service';
 
-@Controller('client')
+@Controller('starstore/client')
 export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
@@ -30,11 +30,11 @@ export class ClientsController {
 
   @Patch(':id')
   updateClient(@Param('id') id: string, @Body() body) {
-    return this.updateClient(id, body);
+    return this.clientsService.updateClient(id, body);
   }
 
   @Delete(':id')
   removeClient(@Param('id') id: string) {
-    return this.removeClient(id);
+    return this.clientsService.removeClient(id);
   }
 }

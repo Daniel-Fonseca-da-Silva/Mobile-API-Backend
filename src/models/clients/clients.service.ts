@@ -46,15 +46,8 @@ export class ClientsService {
   }
 
   removeClient(id: string) {
-    const INDEXCLIENT = this.clients.findIndex(
-      (clients: Client) => clients.client_id === id,
-    );
-    if (!INDEXCLIENT) {
-      throw new HttpException(
-        `Don't possible to find this client with id ${id}`,
-        HttpStatus.NOT_FOUND,
-      );
-    }
-    this.clients.splice(INDEXCLIENT, 1);
+    this.clients = this.clients.filter((client: Client) => {
+      return client.client_id !== id;
+    });
   }
 }

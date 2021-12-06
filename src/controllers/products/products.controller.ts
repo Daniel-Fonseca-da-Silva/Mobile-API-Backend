@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ProductsService } from 'src/models/products/products.service';
 
-@Controller('product')
+@Controller('starstore/product')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
   @Get()
@@ -30,6 +30,6 @@ export class ProductsController {
   }
   @Delete(':id')
   removeProduct(@Param('id') id: string) {
-    return this.productsService.removeProduct(id);
+    this.productsService.removeProduct(id);
   }
 }
