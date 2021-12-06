@@ -22,16 +22,16 @@ export class ClientsService {
   }
 
   findOneClient(id: string) {
-    const CLIENTS = this.clients.find(
+    const clientSaved = this.clients.find(
       (clients: Client) => clients.client_id === id,
     );
-    if (!CLIENTS) {
+    if (!clientSaved) {
       throw new HttpException(
         `Don't possible to find this client with id ${id}`,
         HttpStatus.NOT_FOUND,
       );
     }
-    return CLIENTS;
+    return clientSaved;
   }
 
   createClient(createClientDTO: any) {
@@ -39,10 +39,10 @@ export class ClientsService {
   }
 
   updateClient(id: string, updateClientDTO: any) {
-    const INDEXCLIENT = this.clients.findIndex(
+    const indexClient = this.clients.findIndex(
       (clients) => clients.client_id === id,
     );
-    this.clients[INDEXCLIENT] = updateClientDTO;
+    this.clients[indexClient] = updateClientDTO;
   }
 
   removeClient(id: string) {

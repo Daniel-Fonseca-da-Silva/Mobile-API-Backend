@@ -25,33 +25,33 @@ export class ProductsService {
     return this.products;
   }
   findOneProduct(id: string) {
-    const PRODUCTS = this.products.find(
+    const productsSaved = this.products.find(
       (products: Product) => products.id === Number(id),
     );
-    if (!PRODUCTS) {
+    if (!productsSaved) {
       throw new HttpException(
         `Don't possible to find this id ${id}`,
         HttpStatus.NOT_FOUND,
       );
     }
-    return PRODUCTS;
+    return productsSaved;
   }
   createProduct(createProductDTO: any) {
     this.products.push(createProductDTO);
   }
   updateProduct(id: string, updateProductDTO: any) {
-    const INDEXPRODUCT = this.products.findIndex(
+    const indexProduct = this.products.findIndex(
       (products) => products.id === Number(id),
     );
 
-    this.products[INDEXPRODUCT] = updateProductDTO;
+    this.products[indexProduct] = updateProductDTO;
   }
   removeProduct(id: string) {
-    const INDEXPRODUCT = this.products.findIndex(
+    const indexProduct = this.products.findIndex(
       (products) => products.id === Number(id),
     );
-    if (INDEXPRODUCT != 0) {
-      this.products.splice(INDEXPRODUCT, 1);
+    if (indexProduct != 0) {
+      this.products.splice(indexProduct, 1);
     }
   }
 }

@@ -3,5 +3,5 @@ export class CreditCard {
   card_holder_name: string;
   value: number;
   cvv: number;
-  expt_date: string;
+  exp_date: string;
 }
