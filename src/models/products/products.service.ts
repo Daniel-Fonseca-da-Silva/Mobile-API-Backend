@@ -41,6 +41,7 @@ export class ProductsService {
 
   createProduct(createProductDTO: any) {
     this.products.push(createProductDTO);
+    return createProductDTO;
   }
 
   updateProduct(id: string, updateProductDTO: any) {

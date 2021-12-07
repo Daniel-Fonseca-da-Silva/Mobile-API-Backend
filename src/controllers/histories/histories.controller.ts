@@ -10,7 +10,9 @@ import {
 import { HistoriesService } from 'src/models/histories/histories.service';
 import { CreateHistoriesDto } from 'src/dto/histories/create-histories';
 import { UpdateHistoriesDto } from 'src/dto/histories/update-histories';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Histories')
 @Controller('/starstore/history')
 export class HistoriesController {
   constructor(private readonly historiesService: HistoriesService) {}

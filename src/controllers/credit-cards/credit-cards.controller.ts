@@ -10,7 +10,9 @@ import {
 } from '@nestjs/common';
 import { CreateCreditCardsDto } from 'src/dto/credit-cards/create-credit-cards';
 import { UpdateCreditCardsDto } from 'src/dto/credit-cards/update-credit-cards';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Credit Cards')
 @Controller('starstore/cards')
 export class CreditCardsController {
   constructor(private readonly creditCardsService: CreditCardsService) {}

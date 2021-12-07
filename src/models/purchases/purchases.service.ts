@@ -5,6 +5,7 @@ import { Purchase } from './purchase.entity';
 export class PurchasesService {
   private purchases: Purchase[] = [
     {
+      purchase_id: '569c30dc-6bdb-407a-b18b-3794f9b206a8',
       client_id: '7e655c6e-e8e5-4349-8348-e51e0ff3072e',
       client_name: 'Luke Skywalker',
       total_to_pay: 1236,
