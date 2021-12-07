@@ -7,6 +7,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { CreateProductsDto } from 'src/dto/products/create-products';
+import { UpdateProductsDto } from 'src/dto/products/update-products';
 import { ProductsService } from 'src/models/products/products.service';
 
 @Controller('starstore/product')
@@ -22,12 +24,15 @@ export class ProductsController {
     return this.productsService.findOneProduct(id);
   }
   @Post()
-  createProduct(@Body() body) {
-    return this.productsService.createProduct(body);
+  createProduct(@Body() createProductsDto: CreateProductsDto) {
+    return this.productsService.createProduct(createProductsDto);
   }
   @Patch(':id')
-  updateProduct(@Param('id') id: string, @Body() body) {
-    return this.productsService.updateProduct(id, body);
+  updateProduct(
+    @Param('id') id: string,
+    @Body() updateProductsDto: UpdateProductsDto,
+  ) {
+    return this.productsService.updateProduct(id, updateProductsDto);
   }
   @Delete(':id')
   removeProduct(@Param('id') id: string) {
