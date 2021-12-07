@@ -39,16 +39,16 @@ export class PurchasesService {
     return purchasesSaved;
   }
 
-  createPurchase(createPurchaseDTO: any) {
-    this.purchases.push(createPurchaseDTO);
+  createPurchase(createPurchasesDto: any) {
+    this.purchases.push(createPurchasesDto);
   }
 
-  updatePurchase(id: string, updatePurchaseDTO: any) {
+  updatePurchase(id: string, updatePurchasesDto: any) {
     const indexpurchase = this.purchases.findIndex(
       (purchases) => purchases.client_id === id,
     );
 
-    this.purchases[indexpurchase] = updatePurchaseDTO;
+    this.purchases[indexpurchase] = updatePurchasesDto;
   }
 
   removePurchase(id: string) {

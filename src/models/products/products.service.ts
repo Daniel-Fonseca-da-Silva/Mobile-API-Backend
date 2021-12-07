@@ -15,6 +15,7 @@ export class ProductsService {
       date: '26/11/2015',
     },
   ];
+
   findAllProduct() {
     if (!this.products.length) {
       throw new HttpException(
@@ -24,6 +25,7 @@ export class ProductsService {
     }
     return this.products;
   }
+
   findOneProduct(id: string) {
     const productsSaved = this.products.find(
       (products: Product) => products.id === Number(id),
@@ -36,9 +38,11 @@ export class ProductsService {
     }
     return productsSaved;
   }
+
   createProduct(createProductDTO: any) {
     this.products.push(createProductDTO);
   }
+
   updateProduct(id: string, updateProductDTO: any) {
     const indexProduct = this.products.findIndex(
       (products) => products.id === Number(id),
@@ -46,6 +50,7 @@ export class ProductsService {
 
     this.products[indexProduct] = updateProductDTO;
   }
+
   removeProduct(id: string) {
     const indexProduct = this.products.findIndex(
       (products) => products.id === Number(id),
