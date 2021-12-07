@@ -1,8 +1,4 @@
-export class UpdateProductsDto {
-  readonly title?: string;
-  readonly price?: number;
-  readonly zipcode?: string;
-  readonly seller?: string;
-  readonly thumbnailHd?: string;
-  readonly date?: string;
-}
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateProductsDto } from './create-products';
+
+export class UpdateProductsDto extends PartialType(CreateProductsDto) {}

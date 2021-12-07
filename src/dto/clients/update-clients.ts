@@ -1,5 +1,4 @@
-export class UpdateClientsDto {
-  readonly client_id?: string;
-  readonly client_name?: string;
-  readonly total_to_pay?: number;
-}
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateClientsDto } from './create-clients';
+
+export class UpdateClientsDto extends PartialType(CreateClientsDto) {}

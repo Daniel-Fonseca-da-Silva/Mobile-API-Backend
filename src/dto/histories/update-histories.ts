@@ -1,6 +1,4 @@
-export class UpdateHistoriesDto {
-  readonly client_id?: string;
-  readonly value?: number;
-  readonly date?: string;
-  readonly card_number?: string;
-}
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateHistoriesDto } from './create-histories';
+
+export class UpdateHistoriesDto extends PartialType(CreateHistoriesDto) {}

@@ -1,7 +1,4 @@
-export class UpdateCreditCardsDto {
-  readonly card_number?: string;
-  readonly card_holder_name?: string;
-  readonly value?: number;
-  readonly cvv?: number;
-  readonly exp_date?: string;
-}
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateCreditCardsDto } from './create-credit-cards';
+
+export class UpdateCreditCardsDto extends PartialType(CreateCreditCardsDto) {}
