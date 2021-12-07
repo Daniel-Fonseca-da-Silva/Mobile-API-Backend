@@ -19,14 +19,17 @@ export class ProductsController {
   findAllProduct() {
     return this.productsService.findAllProduct();
   }
+
   @Get(':id')
   findOneProduct(@Param('id') id: string) {
     return this.productsService.findOneProduct(id);
   }
+
   @Post()
   createProduct(@Body() createProductsDto: CreateProductsDto) {
     return this.productsService.createProduct(createProductsDto);
   }
+
   @Patch(':id')
   updateProduct(
     @Param('id') id: string,
@@ -34,6 +37,7 @@ export class ProductsController {
   ) {
     return this.productsService.updateProduct(id, updateProductsDto);
   }
+
   @Delete(':id')
   removeProduct(@Param('id') id: string) {
     this.productsService.removeProduct(id);

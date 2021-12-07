@@ -1,3 +1,4 @@
+import { PurchasesService } from '../../models/purchases/purchases.service';
 import {
   Body,
   Controller,
@@ -10,28 +11,29 @@ import {
 
 @Controller('/starstore/buy')
 export class PurchasesController {
+  constructor(private readonly purchasesService: PurchasesService) {}
   @Get()
   findAllPurchases() {
-    return `Returned all purchases inside database`;
+    return this.purchasesService.findAllPurchases();
   }
 
   @Get(':id')
   findOnePurchase(@Param('id') id: string) {
-    return `Returned one purchase with id ${id} inside database`;
+    return this.purchasesService.findOnePurchase(id);
   }
 
   @Post()
   createPurchase(@Body() body) {
-    return body;
+    return this.purchasesService.createPurchase(body);
   }
 
   @Patch(':id')
-  updatePurchase(@Param('id') id: string) {
-    return `This purchase with id ${id} was updated`;
+  updatePurchase(@Param('id') id: string, @Body() body) {
+    return this.purchasesService.updatePurchase(id, body);
   }
 
   @Delete(':id')
   removePurchase(@Param('id') id: string) {
-    return `This purchase with id ${id} was removed`;
+    return this.purchasesService.removePurchase(id);
   }
 }

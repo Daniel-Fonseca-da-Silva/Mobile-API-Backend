@@ -38,17 +38,20 @@ export class PurchasesService {
     }
     return purchasesSaved;
   }
-  createProduct(createPurchaseDTO: any) {
+
+  createPurchase(createPurchaseDTO: any) {
     this.purchases.push(createPurchaseDTO);
   }
-  updateProduct(id: string, updatePurchaseDTO: any) {
+
+  updatePurchase(id: string, updatePurchaseDTO: any) {
     const indexpurchase = this.purchases.findIndex(
       (purchases) => purchases.client_id === id,
     );
 
     this.purchases[indexpurchase] = updatePurchaseDTO;
   }
-  removeProduct(id: string) {
+
+  removePurchase(id: string) {
     const indexpurchase = this.purchases.findIndex(
       (purchases) => purchases.client_id === id,
     );
