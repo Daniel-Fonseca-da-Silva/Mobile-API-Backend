@@ -12,7 +12,6 @@ import { CreateProductsDto } from 'src/dto/products/create-products';
 import { UpdateProductsDto } from 'src/dto/products/update-products';
 import { ProductsService } from 'src/models/products/products.service';
 import { ApiTags } from '@nestjs/swagger';
-import { STATUS_CODES } from 'http';
 import { HttpStatus } from '@nestjs/common';
 
 @ApiTags('Products')
