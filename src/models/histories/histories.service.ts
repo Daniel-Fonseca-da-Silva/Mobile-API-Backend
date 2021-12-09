@@ -1,55 +1,57 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Injectable,
+  HttpException,
+  HttpStatus,
+  NotFoundException,
+} from '@nestjs/common';
 import { History } from './history.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateHistoriesDto } from 'src/dto/histories/create-histories';
+import { UpdateHistoriesDto } from 'src/dto/histories/update-histories';
 
 @Injectable()
 export class HistoriesService {
-  private histories: History[] = [
-    {
-      client_id: '7e655c6e-e8e5-4349-8348-e51e0ff3072e',
-      purchase_id: '569c30dc-6bdb-407a-b18b-3794f9b206a8',
-      value: 1234,
-      date: '19/08/2016',
-      card_number: '**** **** **** 1234',
-    },
-  ];
+  constructor(
+    @InjectRepository(History)
+    private readonly historiesRepository: Repository<History>,
+  ) {}
 
-  findAllHistories() {
-    if (!this.histories.length) {
-      throw new HttpException(
-        `This histories don't exist more`,
-        HttpStatus.NOT_FOUND,
-      );
+  async findAllHistories() {
+    const historiesList = await this.historiesRepository.find();
+    if (historiesList.length) {
+      return historiesList;
+    } else {
+      throw new NotFoundException(`These histories don't exist more`);
     }
-    return this.histories;
   }
 
-  findHistoriesByClient(id: string) {
-    const histories = this.histories.find(
-      (histories: History) => histories.client_id === id,
-    );
-    if (!histories) {
+  async findHistoriesByClient(id: string) {
+    const historiesList = await this.historiesRepository.find();
+    if (!historiesList.length) {
       throw new HttpException(
         `Don't possible to find this history with id ${id}`,
         HttpStatus.NOT_FOUND,
       );
     }
-    return histories;
+    return historiesList;
   }
 
-  CreateHistories(createHistoryDto: any) {
-    this.histories.push(createHistoryDto);
-  }
-
-  updateHistories(id: string, updateHistoryDto: any) {
-    const indexHistories = this.histories.findIndex(
-      (histories) => histories.client_id === id,
+  async CreateHistories(createHistoriesDto: CreateHistoriesDto) {
+    const historyToCreate = await this.historiesRepository.create(
+      createHistoriesDto,
     );
-    this.histories[indexHistories] = updateHistoryDto;
+    return this.historiesRepository.save(historyToCreate);
   }
 
-  RemoveHistories(id: string) {
-    this.histories = this.histories.filter((histories: History) => {
-      return histories.client_id !== id;
-    });
+  async updateHistories(id: string, updateHistoriesDto: UpdateHistoriesDto) {
+    const historyToUpdate = await this.historiesRepository.findOne(id);
+    this.historiesRepository.merge(await historyToUpdate, updateHistoriesDto);
+    return this.historiesRepository.save(historyToUpdate);
+  }
+
+  async RemoveHistories(id: string) {
+    const historyToRemove = await this.historiesRepository.findOne(id);
+    return this.historiesRepository.remove(historyToRemove);
   }
 }

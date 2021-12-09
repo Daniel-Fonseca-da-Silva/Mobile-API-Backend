@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Client } from './client.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -36,8 +31,8 @@ export class ClientsService {
     }
   }
 
-  createClient(createClientsDto: CreateClientsDto) {
-    const clientToCreate = this.clientRepository.create(createClientsDto);
+  async createClient(createClientsDto: CreateClientsDto) {
+    const clientToCreate = await this.clientRepository.create(createClientsDto);
     return this.clientRepository.save(clientToCreate);
   }
 

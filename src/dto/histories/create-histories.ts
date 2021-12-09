@@ -3,6 +3,13 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateHistoriesDto {
   @ApiProperty({
+    example: '569c30dc-6bdb-407a-b18b-3794f9b206a8',
+    description: 'Should be value a format like UUID',
+  })
+  @IsString()
+  purchase_id: string;
+
+  @ApiProperty({
     example: '7e655c6e-e8e5-4349-8348-e51e0ff3072e',
     description: 'Should be value a format like UUID',
   })
