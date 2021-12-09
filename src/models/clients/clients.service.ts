@@ -1,53 +1,54 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Client } from './client.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateClientsDto } from 'src/dto/clients/create-clients';
+import { UpdateClientsDto } from 'src/dto/clients/update-clients';
 
 @Injectable()
 export class ClientsService {
-  private clients: Client[] = [
-    {
-      client_id: '7e655c6e-e8e5-4349-8348-e51e0ff3072e',
-      client_name: 'Luke Skywalker',
-      total_to_pay: 1236,
-    },
-  ];
+  constructor(
+    @InjectRepository(Client)
+    private readonly clientRepository: Repository<Client>,
+  ) {}
 
-  findAllClient() {
-    if (!this.clients.length) {
-      throw new HttpException(
-        `This client don't exist more`,
-        HttpStatus.NO_CONTENT,
+  async findAllClient() {
+    const clientList = await this.clientRepository.find();
+    if (clientList.length) {
+      return clientList;
+    } else {
+      throw new NotFoundException(`These client don't exist more`);
+    }
+  }
+
+  async findOneClient(id: string) {
+    try {
+      return await this.clientRepository.findOneOrFail(id);
+    } catch (error) {
+      throw new NotFoundException(
+        `This client with code ${id} don't exist more`,
       );
     }
-    return this.clients;
   }
 
-  findOneClient(id: string) {
-    const clientSaved = this.clients.find(
-      (clients: Client) => clients.client_id === id,
-    );
-    if (!clientSaved) {
-      throw new HttpException(
-        `Don't possible to find this client with id ${id}`,
-        HttpStatus.NOT_FOUND,
-      );
-    }
-    return clientSaved;
+  createClient(createClientsDto: CreateClientsDto) {
+    const clientToCreate = this.clientRepository.create(createClientsDto);
+    return this.clientRepository.save(clientToCreate);
   }
 
-  createClient(createClientDTO: any) {
-    this.clients.push(createClientDTO);
+  async updateClient(id: string, updateClientsDto: UpdateClientsDto) {
+    const clientToUpdate = this.clientRepository.findOne(id);
+    this.clientRepository.merge(await clientToUpdate, updateClientsDto);
+    return this.clientRepository.save(await clientToUpdate);
   }
 
-  updateClient(id: string, updateClientDTO: any) {
-    const indexClient = this.clients.findIndex(
-      (clients) => clients.client_id === id,
-    );
-    this.clients[indexClient] = updateClientDTO;
-  }
-
-  removeClient(id: string) {
-    this.clients = this.clients.filter((client: Client) => {
-      return client.client_id !== id;
-    });
+  async removeClient(id: string) {
+    const clientToRemove = await this.clientRepository.findOne(id);
+    return this.clientRepository.remove(clientToRemove);
   }
 }
