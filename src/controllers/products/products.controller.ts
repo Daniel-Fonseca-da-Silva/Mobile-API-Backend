@@ -8,9 +8,9 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateProductsDto } from 'src/dto/products/create-products';
-import { UpdateProductsDto } from 'src/dto/products/update-products';
-import { ProductsService } from 'src/models/products/products.service';
+import { CreateProductsDto } from '../../dto/products/create-products';
+import { UpdateProductsDto } from '../../dto/products/update-products';
+import { ProductsService } from '../../models/products/products.service';
 import { ApiTags } from '@nestjs/swagger';
 import { HttpStatus } from '@nestjs/common';
 
