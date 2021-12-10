@@ -42,6 +42,6 @@ export class ClientsController {
 
   @Delete(':id')
   removeClient(@Param('id') id: string) {
-    return this.clientsService.removeClient(id);
+    this.clientsService.removeClient(id);
   }
 }

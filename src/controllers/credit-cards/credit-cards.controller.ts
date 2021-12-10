@@ -42,6 +42,6 @@ export class CreditCardsController {
 
   @Delete(':id')
   removeCreditCard(@Param('id') id: string) {
-    return this.creditCardsService.removeCreditCard(id);
+    this.creditCardsService.removeCreditCard(id);
   }
 }

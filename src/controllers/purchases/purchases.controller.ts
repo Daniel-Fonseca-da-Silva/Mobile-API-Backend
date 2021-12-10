@@ -40,6 +40,6 @@ export class PurchasesController {
 
   @Delete(':id')
   removePurchase(@Param('id') id: string) {
-    return this.purchasesService.removePurchase(id);
+    this.purchasesService.removePurchase(id);
   }
 }

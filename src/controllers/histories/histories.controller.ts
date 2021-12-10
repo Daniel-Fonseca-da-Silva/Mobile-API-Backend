@@ -42,6 +42,6 @@ export class HistoriesController {
 
   @Delete(':id')
   RemoveHistories(@Param('id') id: string) {
-    return this.historiesService.RemoveHistories(id);
+    this.historiesService.RemoveHistories(id);
   }
 }
