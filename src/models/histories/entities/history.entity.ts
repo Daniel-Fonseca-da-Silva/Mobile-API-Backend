@@ -1,6 +1,8 @@
 import { PrimaryGeneratedColumn, Column, Entity } from 'typeorm';
+import { IHistory } from '../interfaces/history.interface';
+
 @Entity({ name: 'histories' })
-export class History {
+export class History implements IHistory {
   @PrimaryGeneratedColumn('uuid')
   history_id: string;
 

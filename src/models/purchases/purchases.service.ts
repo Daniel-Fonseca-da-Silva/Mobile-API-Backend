@@ -1,5 +1,5 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { Purchase } from './purchase.entity';
+import { Purchase } from './entities/purchase.entity';
 
 @Injectable()
 export class PurchasesService {

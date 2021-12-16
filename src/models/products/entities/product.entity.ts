@@ -1,7 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { IProduct } from '../interfaces/product.interface';
 
 @Entity({ name: 'products' })
-export class Product {
+export class Product implements IProduct {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

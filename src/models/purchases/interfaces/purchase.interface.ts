@@ -1,4 +1,4 @@
-export class Purchase {
+export interface IPurchase {
   purchase_id: string;
   client_id: string;
   client_name: string;

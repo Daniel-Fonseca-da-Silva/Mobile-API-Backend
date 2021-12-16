@@ -1,10 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreditCard } from './credit-card.entity';
+import { CreditCard } from './entities/credit-card.entity';
 
 @Injectable()
 export class CreditCardsService {
   private creditCards: CreditCard[] = [
     {
+      card_id: '1234123412341234',
       card_number: '1234123412341234',
       value: 7990,
       cvv: 789,

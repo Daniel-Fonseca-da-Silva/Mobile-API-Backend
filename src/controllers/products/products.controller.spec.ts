@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductsController } from './products.controller';
 import { ProductsService } from '../../models/products/products.service';
-import { Product } from '../../models/products/product.entity';
+import { Product } from '../../models/products/entities/product.entity';
 import { IsString } from 'class-validator';
 
 const productList: Product[] = [

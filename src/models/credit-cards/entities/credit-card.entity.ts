@@ -1,6 +1,8 @@
 import { PrimaryGeneratedColumn, Column, Entity } from 'typeorm';
+import { ICreditCard } from '../interfaces/credit-card.interface';
+
 @Entity({ name: 'credit_cards' })
-export class CreditCard {
+export class CreditCard implements ICreditCard {
   @PrimaryGeneratedColumn('uuid')
   card_id: string;
 
