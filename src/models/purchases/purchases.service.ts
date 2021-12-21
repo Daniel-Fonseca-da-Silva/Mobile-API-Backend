@@ -1,63 +1,75 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CreatePurchasesDto } from 'src/dto/purchases/create-purchases';
+import { UpdatePurchasesDto } from 'src/dto/purchases/update-purchases';
+import { Repository } from 'typeorm';
 import { Purchase } from './entities/purchase.entity';
 
 @Injectable()
 export class PurchasesService {
-  private purchases: Purchase[] = [
-    {
-      purchase_id: '569c30dc-6bdb-407a-b18b-3794f9b206a8',
-      client_id: '7e655c6e-e8e5-4349-8348-e51e0ff3072e',
-      client_name: 'Luke Skywalker',
-      total_to_pay: 1236,
-      card_number: '1234123412341234',
-      value: 7990,
-      cvv: 789,
-      card_holder_name: 'Luke Skywalker',
-      exp_date: '12/24',
-    },
-  ];
+  constructor(
+    @InjectRepository(Purchase)
+    private readonly purchasesRepository: Repository<Purchase>,
+  ) {}
 
-  findAllPurchases() {
-    if (!this.purchases.length) {
-      throw new HttpException(
-        `This purchase don't exist more`,
-        HttpStatus.NO_CONTENT,
-      );
-    }
-    return this.purchases;
-  }
-
-  findOnePurchase(id: string) {
-    const purchasesSaved = this.purchases.find(
-      (purchases: Purchase) => purchases.client_id === id,
-    );
-    if (!purchasesSaved) {
-      throw new HttpException(
-        `Don't possible to find this purchase with id ${id}`,
-        HttpStatus.NOT_FOUND,
-      );
-    }
-    return purchasesSaved;
-  }
-
-  createPurchase(createPurchasesDto: any) {
-    this.purchases.push(createPurchasesDto);
-  }
-
-  updatePurchase(id: string, updatePurchasesDto: any) {
-    const indexpurchase = this.purchases.findIndex(
-      (purchases) => purchases.client_id === id,
-    );
-
-    this.purchases[indexpurchase] = updatePurchasesDto;
-  }
-
-  removePurchase(id: string) {
-    const indexpurchase = this.purchases.findIndex(
-      (purchases) => purchases.client_id === id,
-    );
-    if (indexpurchase != 0) {
-      this.purchases.splice(indexpurchase, 1);
+  async findAllPurchases() {
+    const purchaseList = await this.purchasesRepository.find();
+    if (purchaseList.length) {
+      const purchases = purchaseList.map(selectOnlyElement);
+      return purchases;
+    } else {
+      throw new NotFoundException(`The purchases don't exist more`);
     }
   }
+
+  async findOnePurchase(id: string): Promise<Purchase> {
+    try {
+      return await this.purchasesRepository.findOneOrFail(id);
+    } catch (error) {
+      throw new NotFoundException(`${id} don't exist more`);
+    }
+  }
+
+  createPurchase(createPurchasesDto: CreatePurchasesDto): Promise<Purchase> {
+    const purchaseToCreate =
+      this.purchasesRepository.create(createPurchasesDto);
+    return this.purchasesRepository.save(purchaseToCreate);
+  }
+
+  async updatePurchase(
+    id: string,
+    updatePurchasesDto: UpdatePurchasesDto,
+  ): Promise<Purchase> {
+    const purchaseToUpdate = this.findOnePurchase(id);
+    this.purchasesRepository.merge(await purchaseToUpdate, updatePurchasesDto);
+    return this.purchasesRepository.save(await purchaseToUpdate);
+  }
+
+  async removePurchase(id: string): Promise<void> {
+    const purchaseToRemove = await this.purchasesRepository.findOne(id);
+    this.purchasesRepository.remove(purchaseToRemove);
+  }
+}
+
+function selectOnlyElement(show) {
+  const {
+    client_id,
+    client_name,
+    total_to_pay,
+    card_number,
+    value,
+    cvv,
+    card_holder_name,
+    exp_date,
+  } = show;
+  return {
+    client_id,
+    client_name,
+    total_to_pay,
+    card_number,
+    value,
+    cvv,
+    card_holder_name,
+    exp_date,
+  };
 }

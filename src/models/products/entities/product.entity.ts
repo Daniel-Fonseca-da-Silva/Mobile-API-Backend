@@ -4,7 +4,7 @@ import { IProduct } from '../interfaces/product.interface';
 @Entity({ name: 'products' })
 export class Product implements IProduct {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  prod_id: string;
 
   @Column({ length: 60 })
   title: string;
@@ -25,7 +25,7 @@ export class Product implements IProduct {
   date: string;
 
   constructor(products?: Partial<Product>) {
-    this.id = products?.id;
+    this.prod_id = products?.prod_id;
     this.title = products?.title;
     this.price = products?.price;
     this.zipcode = products?.zipcode;
