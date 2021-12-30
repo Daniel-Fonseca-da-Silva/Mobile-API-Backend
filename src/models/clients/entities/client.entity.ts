@@ -10,4 +10,10 @@ export class Client implements IClient {
 
   @Column({ type: 'int', width: 11 })
   total_to_pay: number;
+
+  constructor(client_id?: string, client_name?: string, total_to_pay?: number) {
+    this.client_id = client_id || '';
+    this.client_name = client_name || '';
+    this.total_to_pay = total_to_pay || NaN;
+  }
 }
