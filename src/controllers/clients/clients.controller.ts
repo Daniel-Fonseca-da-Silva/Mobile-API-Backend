@@ -7,10 +7,11 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateClientsDto } from 'src/dto/clients/create-clients';
-import { UpdateClientsDto } from 'src/dto/clients/update-clients';
-import { ClientsService } from 'src/models/clients/clients.service';
+import { CreateClientsDto } from '../../dto/clients/create-clients';
+import { UpdateClientsDto } from '../../dto/clients/update-clients';
+import { ClientsService } from '../../models/clients/clients.service';
 import { ApiTags } from '@nestjs/swagger';
+import { Client } from 'src/models/clients/entities/client.entity';
 
 @ApiTags('Clients')
 @Controller('starstore/clients')
@@ -18,30 +19,32 @@ export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
   @Get()
-  findAllClients() {
-    return this.clientsService.findAllClient();
+  async findAllClients(): Promise<Client[]> {
+    return this.clientsService.findAllClients();
   }
 
   @Get(':id')
-  findOneClient(@Param('id') id: string) {
-    return this.clientsService.findOneClient(id);
+  async findOneClient(@Param('id') client_id: string): Promise<Client> {
+    return this.clientsService.findOneClient(client_id);
   }
 
   @Post()
-  createClient(@Body() createClientsDto: CreateClientsDto) {
+  async createClient(
+    @Body() createClientsDto: CreateClientsDto,
+  ): Promise<Client> {
     return this.clientsService.createClient(createClientsDto);
   }
 
   @Patch(':id')
-  updateClient(
+  async updateClient(
     @Param('id') id: string,
     @Body() updateClientsDto: UpdateClientsDto,
-  ) {
+  ): Promise<Client> {
     return this.clientsService.updateClient(id, updateClientsDto);
   }
 
   @Delete(':id')
-  removeClient(@Param('id') id: string) {
+  async removeClient(@Param('id') id: string): Promise<void> {
     this.clientsService.removeClient(id);
   }
 }

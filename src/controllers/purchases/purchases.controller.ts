@@ -8,8 +8,8 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreatePurchasesDto } from 'src/dto/purchases/create-purchases';
-import { UpdatePurchasesDto } from 'src/dto/purchases/update-purchases';
+import { CreatePurchasesDto } from '../../dto/purchases/create-purchases';
+import { UpdatePurchasesDto } from '../../dto/purchases/update-purchases';
 import { ApiTags } from '@nestjs/swagger';
 @ApiTags('Purchases')
 @Controller('/starstore/buy')
